@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+</head>
+<body>
+	<div style="background: blue; height: 100vh">
+		<canvas id="canvas" style="background: yellow; width: 100%; height: 100%" />
+	</div>
+	<script>
+		const canvas = getElementById("canvas");
+		canvas.style.width = "100%";
+		canvas.style.height = "100%";
+		canvas.width = canvas.parentElement.offsetWidth;
+		canvas.height = canvas.parentElement.offsetHeight;
+	</script>
+</body>
+</html>
