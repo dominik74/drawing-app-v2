@@ -1,10 +1,5 @@
-import styled from "styled-components";
 import Window from "./Window";
 import { CanvasObject } from "../types/CanvasObject";
-
-const StyledHistoryWindow = styled.div`
-	
-`;
 
 interface Props {
 	onClose: () => void;	
@@ -17,7 +12,7 @@ export default function HistoryWindow(props: Props) {
 			title='history'
 			onClose={props.onClose}
 		>
-			{props.history.map((snapshot, i) => (
+			{props.history.map((_, i) => (
 				<p key={i}>snapshot {i + 1}</p>
 			))}
 		</Window>

@@ -79,8 +79,8 @@ export class CanvasObject {
 		});
 	}
 
-	recalculateScaleOfPoints(scaleFactorX: number, scaleFactorY: number,
-		origin: Point, prescalePoints?: Point[]): void {
+	recalculateScaleOfPoints(scaleFactorX: number, origin: Point,
+		prescalePoints?: Point[]): void {
 
 		// if (!this.points)
 		// 	return;

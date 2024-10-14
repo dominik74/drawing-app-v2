@@ -1,6 +1,5 @@
 import { CanvasObject } from "../types/CanvasObject";
 import { Point } from "../types/Point";
-import { Transform } from "../types/Transform";
 
 export function moveCanvasObject(co: CanvasObject, deltaX: number, deltaY: number, preMoveCo: CanvasObject) {
 	if (co.points && preMoveCo.points) {

@@ -1,22 +1,21 @@
-import { SyntheticEvent, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Tool } from "../types/Tool";
 import { Point } from "../types/Point";
-import { coGetBottomRightPoint, coGetCenterPoint, coGetTopCenterPoint } from "../types/CanvasObject";
+import { coGetTopCenterPoint } from "../types/CanvasObject";
 import LineRender from "./LineRender";
 import { Brush } from "../types/Brush";
 import { Shape } from "../types/Shape";
 import { ShapeType } from "../types/ShapeType";
-import { CanvasObject, CanvasObjectProps } from "../types/CanvasObject";
+import { CanvasObject } from "../types/CanvasObject";
 import { CanvasAction } from "../types/CanvasAction";
 import { Font } from "../types/Font";
 import { Transform } from "../types/Transform";
-import { moveCanvasObject, rotateCanvasObject, scaleCanvasObject } from "../functionality/transformation";
 import { CoSelection } from "../types/Selection";
 
-function radiansToDegrees(radians: number): number {
-    return radians * (180 / Math.PI);
-}
+// function radiansToDegrees(radians: number): number {
+//     return radians * (180 / Math.PI);
+// }
 
 function getRandomString(length: number) {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -100,7 +99,6 @@ export default function Canvas(props: Props) {
     //TODO: use global variables where possible?
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const ctxRef = useRef<CanvasRenderingContext2D>(null);
 
     const [canvasAction, setCanvasAction] = useState<CanvasAction>(CanvasAction.none);
 
@@ -112,7 +110,6 @@ export default function Canvas(props: Props) {
         points?: Point[];
     } | null>(null);
 
-    const [tempTransform, setTempTransform] = useState<Transform | undefined>(undefined);
     // const [tempPoints, setTempPoints] = useState<Point[] | undefined>(undefined);
 
     const [selection, setSelection] = useState<CoSelection>({
@@ -218,7 +215,7 @@ export default function Canvas(props: Props) {
         // ctx.globalAlpha = lineOpacity
         ctx.strokeStyle = props.color;
         ctx.lineWidth = props.startThickness;
-        ctxRef.current = ctx;
+        // ctxRef.current = ctx;
         // resizeCanvasToDisplaySize(canvasRef.current);
     }, [props.points, props.startThickness, props.endThickness, props.color]);
 
@@ -539,7 +536,7 @@ export default function Canvas(props: Props) {
         // setSelectedCo(null);
         setCanvasAction(CanvasAction.none);
 
-        setSelection(prevSelection => {
+        setSelection(_ => {
             const updatedSelection = {
                 ...selection,
                 selectedObjects: [...selection.selectedObjects]
@@ -1021,7 +1018,7 @@ export default function Canvas(props: Props) {
     //     setCanvasAction(CanvasAction.scale);
     // }
 
-    function onScaleEnd(e: React.MouseEvent<HTMLElement>) {
+    function onScaleEnd() {
         // setCanvasAction(CanvasAction.none);
         // selectionController_handleMouseDown(e);
         onMouseUp();
@@ -1177,8 +1174,6 @@ export default function Canvas(props: Props) {
 
         setSelectionController(tempSelectionController);
 
-        const selectionRect = tempSelectionController;
-        
         for (let i = 0; i < selection.selectedObjects.length; i++) {
             const selObj = canvasObjects[selection.selectedObjects[i].index];
 
@@ -1205,7 +1200,7 @@ export default function Canvas(props: Props) {
             console.log("prevsel: ", selection.selectedObjects[i]);
         
             // selObj.recalculatePositionOfPoints(deltaX, deltaY);
-            selObj.recalculateScaleOfPoints(scaleFactorX, scaleFactorY, transformOrigin, selection.selectedObjects[i].co.points);
+            selObj.recalculateScaleOfPoints(scaleFactorX, transformOrigin, selection.selectedObjects[i].co.points);
             // updateSelectionRect(selObj);
         }
     }
@@ -1245,7 +1240,7 @@ export default function Canvas(props: Props) {
         // }
     }
 
-    function scaleSelectionWithMouse(selectionRect: Transform) {
+    // function scaleSelectionWithMouse(selectionRect: Transform) {
         // scale selection rect according to mouse movement (need to store initial state) 
         // update selected objects' scale and position according to the selection rect (can be 1 or more)
         // we MIGHT be able to calculate the objects's inital x and y based on the initial selection rect state (???)
@@ -1257,7 +1252,7 @@ export default function Canvas(props: Props) {
         // also need to figure out the naming
 
         // all this means is that much of the code has to be re-done.
-    }
+    // }
 
     function isCoInSelection(co: CanvasObject, selectionTransform: Transform): boolean {
         const selectionTransformNormalized = normalizeRect(selectionTransform);

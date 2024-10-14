@@ -1,9 +1,9 @@
-import { ChangeEventHandler, useEffect, useState } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 
-function radiansToDegrees(radians: number): number {
-    return radians * (180 / Math.PI);
-}
+// function radiansToDegrees(radians: number): number {
+//     return radians * (180 / Math.PI);
+// }
 
 interface StyledLineProps {
     $isSelected: boolean;

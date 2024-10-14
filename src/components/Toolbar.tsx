@@ -1,12 +1,5 @@
 import styled from "styled-components";
-import { Button } from "./Button";
 import { Tool } from "../types/Tool";
-import { Brush } from "../types/Brush";
-import { DEFAULT_BRUSH_SIZE, MAX_BRUSH_SIZE } from "../constants";
-import { useEffect, useState } from "react";
-import { Shape } from "../types/Shape";
-import { Font } from "../types/Font";
-import { ShapeType } from "../types/ShapeType";
 
 const StyledToolbar = styled.div`
 	position: absolute;

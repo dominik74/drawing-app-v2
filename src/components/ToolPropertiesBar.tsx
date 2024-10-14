@@ -48,8 +48,6 @@ interface Props {
 export default function ToolPropertiesBar(props: Props) {
 	const fmtBrushThickness = props.brushSettings.thickness < 10 ? `0${props.brushSettings.thickness }` : props.brushSettings.thickness ;
 
-	const shapeTypes = ["rectangle", "circle", "triangle"];
-
 	function handleBrushThicknessChange(e: React.ChangeEvent<HTMLInputElement>) {
 		props.setBrushSettings({
 			...props.brushSettings,
